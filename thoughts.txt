@@ -1,0 +1,23 @@
+	6 bits - 2 bits fixed point integer
+
+	0 0 0 1 1 1 . 0 0 = 7
+	0 0 0 1 1 1 . 1 0 = 7.5
+	1 << 2 = 1 0 0
+	
+	0 0 0 0 0 1 1 1 * ( 1 0 0 ) = 0 0 0 1 1 1 0 0
+
+	0 0 0 0 0 1 1 1 / ( 1 0 0 ) = 0 0 0 0 0 0 0 1   (1 1 as remainder)
+
+	multiplying by (1 0 0) shift the bits to the left
+	dividing by (1 0 0) shift the bits to the right
+
+	How can we differentiate float from integers in fixed point notation?
+
+		0 0 0 1 1 1 . 1 0 = 7.5
+						1
+	&					0
+		0 0 0 1 1 1 . 1 0 = 7.5
+					  1	0
+	&				  1 0 >> 1
+						1
+
