@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:42:23 by calle             #+#    #+#             */
-/*   Updated: 2021/10/04 18:01:18 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/05 19:03:42 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "Fixed.hpp"
 
 int main( void ) {
-	Fixed const a( 10.000f );
-	Fixed const b( 10 );
+	Fixed const a( 7.2f );
+	Fixed const b( 2 );
 	Fixed const c( 42.42f );
 	Fixed const d( 42 );
 	//Fixed const e( 2 );

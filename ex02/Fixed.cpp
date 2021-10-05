@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:03:10 by calle             #+#    #+#             */
-/*   Updated: 2021/10/04 18:00:45 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/05 19:03:40 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Fixed::Fixed() : _fixedPointValue(0){
 Fixed::Fixed( const int value ){
 
 	std::cout << "Int constructor called\n";
-	setRawBits((int)(value * (1 << _getFractionalBits())));
+	setRawBits((int)(value << _getFractionalBits()));
 	return ;
 };
 
@@ -70,7 +70,7 @@ float	Fixed::toFloat( void ) const {
 
 int	Fixed::toInt( void ) const {
 	
-	return ((int)(getRawBits() / (1 << _getFractionalBits())));
+	return ((int)(getRawBits() >> _getFractionalBits()));
 }
 
 bool Fixed::isFloat( void ) const {
@@ -90,7 +90,7 @@ Fixed & Fixed::operator= ( Fixed const & rhs ){
 
 Fixed	Fixed::operator+ ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue + rhs.getRawBits() );
+  	return ( this->_fixedPointValue + rhs.getRawBits() ) >> _getFractionalBits();
 }
 
 Fixed	Fixed::operator- ( Fixed const & rhs ) const{
@@ -100,12 +100,12 @@ Fixed	Fixed::operator- ( Fixed const & rhs ) const{
 
 Fixed	Fixed::operator* ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue * rhs.getRawBits() );
+  	return ( this->_fixedPointValue * rhs.getRawBits());
 }
 
 Fixed	Fixed::operator/ ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue / rhs.getRawBits() );
+  	return ( this->_fixedPointValue * rhs.getRawBits());
 }
 
 bool Fixed::operator< (  Fixed const & rhs ) const{
