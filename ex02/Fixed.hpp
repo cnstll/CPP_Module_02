@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 16:58:17 by calle             #+#    #+#             */
-/*   Updated: 2021/10/05 14:40:06 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/06 18:44:57 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,31 @@ class Fixed {
 
 		bool	isFloat( void ) const;
 
-		Fixed & operator= ( Fixed const & rhs );
-		Fixed  operator+ ( Fixed const & rhs ) const;
-		Fixed  operator- ( Fixed const & rhs ) const;
-		Fixed  operator* ( Fixed const & rhs ) const;
-		Fixed  operator/ ( Fixed const & rhs ) const;
-
-		bool operator< ( Fixed const & rhs ) const;
-		bool operator> ( Fixed const & rhs ) const;
-		bool operator<=( Fixed const & rhs ) const;
-		bool operator>=( Fixed const & rhs ) const;
-		bool operator==( Fixed const & rhs ) const;
-		bool operator!=( Fixed const & rhs ) const;
+		Fixed	&operator= ( Fixed const & rhs );
+		Fixed	operator+ ( Fixed const & rhs ) const;
+		Fixed	operator- ( Fixed const & rhs ) const;
+		Fixed	operator* ( Fixed const & rhs ) const;
+		Fixed	operator/ ( Fixed const & rhs ) const;
 		
+		bool	operator< ( Fixed const & rhs ) const;
+		bool	operator> ( Fixed const & rhs ) const;
+		bool	operator<=( Fixed const & rhs ) const;
+		bool	operator>=( Fixed const & rhs ) const;
+		bool	operator==( Fixed const & rhs ) const;
+		bool	operator!=( Fixed const & rhs ) const;
+		
+		Fixed	&operator++( void );
+		Fixed	&operator--( void );
+		Fixed	operator++( int );
+		Fixed	operator--( int );
+
+		static const int epsilon = 1 << 8; 
+
 	private:
 		int	_fixedPointValue;
 		static const int _fractionalBits = 8;
 		int	_getFractionalBits( void ) const;
+		Fixed _operationResult( int resultIsfloat, int operation ) const;
 };
 
 std::ostream & operator<<( std::ostream & o, Fixed const & rhs );

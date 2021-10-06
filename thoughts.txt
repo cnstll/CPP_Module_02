@@ -62,6 +62,7 @@
 	    0 1 1 1 1 1 x x x 
 	---------------------
 	    1 0 1 0 1 0 1 0 1 
+		1 0 1 0 1 0 1 0 1 0000
 		1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0
    /				1 0 0
 	---------------------
@@ -81,3 +82,25 @@
 	     0 0 0 0 1 1 x x 
 	---------------------
 	     0 0 0 0 1 1 0 0 
+
+	Convert Float value to Fix value of fractionalBits:
+	> (int)(round(float_value * (1 << fractionalBits)))
+
+	Convert Fix value of fractionalBits to Float:
+	> ((float)float_value) / (1 << fractionalBits))
+
+	Convert Int value to Fix value of fractionalBits:
+	> (int)(int_value << fractionalBits))
+
+	Convert Fix value of fractionalBits to int value:
+	> (int_value >> fractionalBits))
+
+	Sum Fixed values f1 and f2
+	> int sum = (f1 + f2)
+	> sum.isFloat() ? (float)(sum >> fractionalBits) : (int)(sum >> fractionalBits) 
+	
+	Check if float 
+	>   . 0 0 1 0 0 0 0 0 >> 6  -- 0 0 1
+	> & . 0 0 0 0 0 0 0 1
+	> & . 0 0 1 0 0 0 0 0
+	> 

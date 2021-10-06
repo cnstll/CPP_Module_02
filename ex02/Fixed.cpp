@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:03:10 by calle             #+#    #+#             */
-/*   Updated: 2021/10/05 19:03:40 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/06 18:44:54 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,34 @@
 
 Fixed::Fixed() : _fixedPointValue(0){
 
-	std::cout << "Default constructor called\n";
+	//std::cout << "Default constructor called\n";
 	return ;
 };
 
 Fixed::Fixed( const int value ){
 
-	std::cout << "Int constructor called\n";
-	setRawBits((int)(value << _getFractionalBits()));
+	//std::cout << "Int constructor called\n";
+	setRawBits(value << _getFractionalBits());
 	return ;
 };
 
 Fixed::Fixed( const float value ){
 
-	std::cout << "Float constructor called\n";
+	//std::cout << "Float constructor called\n";
 	setRawBits((int)(roundf(value * (1 << _getFractionalBits()))));
 	return ;
 };
 
 Fixed::Fixed( Fixed const & src ){
 
-	std::cout << "Copy constructor called\n";
+	//std::cout << "Copy constructor called\n";
 	*this = src;
 	return ;
 };
 
 Fixed::~Fixed(){
 
-	std::cout << "Destructor called\n";
+	//std::cout << "Destructor called\n";
 	return;
 }
 
@@ -65,7 +65,7 @@ void	Fixed::setRawBits( int const raw ){
 
 float	Fixed::toFloat( void ) const {
 
-	return ((float)(getRawBits() / (float)(1 << _getFractionalBits())));
+	return (((float)getRawBits()) / (1 << _getFractionalBits()));
 }
 
 int	Fixed::toInt( void ) const {
@@ -83,29 +83,46 @@ bool Fixed::isFloat( void ) const {
 
 Fixed & Fixed::operator= ( Fixed const & rhs ){
 	
-	std::cout << "Assignation operator called\n";
+	//std::cout << "Assignation operator called\n";
   	this->_fixedPointValue = rhs.getRawBits();
 	return *this;
 }
 
+Fixed	Fixed::_operationResult( int resultIsFloat, int operation) const{
+	if (resultIsFloat)
+		return (((float)operation) / (float)(1 <<  _getFractionalBits()));
+	else
+		return (operation >> _getFractionalBits());
+}
+
 Fixed	Fixed::operator+ ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue + rhs.getRawBits() ) >> _getFractionalBits();
+ 	int sum = this->_fixedPointValue + rhs.getRawBits();
+    int resultIsFloat = rhs.isFloat() || this->isFloat();
+	return (_operationResult( resultIsFloat, sum));
 }
 
 Fixed	Fixed::operator- ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue - rhs.getRawBits() );
+ 	int diff = this->_fixedPointValue - rhs.getRawBits();
+    int resultIsFloat = rhs.isFloat() || this->isFloat();
+	return (_operationResult( resultIsFloat, diff));
 }
 
 Fixed	Fixed::operator* ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue * rhs.getRawBits());
+//	const int	BIT_SHIFT = 8;
+ 	int mul = ((this->_fixedPointValue >> 4) * (rhs.getRawBits() >> 4));// >> BIT_SHIFT; 
+    int resultIsFloat = rhs.isFloat() || this->isFloat();
+	return (_operationResult( resultIsFloat, mul));
 }
 
 Fixed	Fixed::operator/ ( Fixed const & rhs ) const{
 
-  	return ( this->_fixedPointValue * rhs.getRawBits());
+	const int	BIT_SHIFT = 8;
+ 	int div = ((this->_fixedPointValue) / (rhs.getRawBits())) << BIT_SHIFT;
+    int resultIsFloat = rhs.isFloat() || this->isFloat();
+	return (_operationResult( resultIsFloat, div));
 }
 
 bool Fixed::operator< (  Fixed const & rhs ) const{
@@ -137,11 +154,39 @@ bool Fixed::operator!=(  Fixed const & rhs ) const {
 	return (!operator== (rhs));
 }
 
+Fixed	& Fixed::operator++( void ) {
+
+	int	temp = 	this->getRawBits();
+
+	this->setRawBits(++temp);
+	return *this;
+}
+
+Fixed	& Fixed::operator--( void ) {
+
+	int	temp = 	this->getRawBits();
+
+	this->setRawBits(--temp);
+	return *this;
+}
+
+Fixed	Fixed::operator++( int ) {
+
+	Fixed temp(*this);
+
+	++(*this);
+	return temp;
+}
+
+Fixed	Fixed::operator--( int ) {
+
+	Fixed temp(*this);
+
+	--(*this);
+	return temp;
+}
+
 std::ostream & operator<<( std::ostream & o, Fixed const & rhs){
 
-	if (rhs.isFloat())
-		o << rhs.toFloat();
-	else
-		o << rhs.toInt();
-	return o;
+	return (rhs.isFloat() ? o << rhs.toFloat() : o << rhs.toInt());
 }
