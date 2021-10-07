@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:03:10 by calle             #+#    #+#             */
-/*   Updated: 2021/10/06 18:44:54 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/07 17:58:27 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,7 @@ Fixed	Fixed::operator- ( Fixed const & rhs ) const{
 
 Fixed	Fixed::operator* ( Fixed const & rhs ) const{
 
-//	const int	BIT_SHIFT = 8;
- 	int mul = ((this->_fixedPointValue >> 4) * (rhs.getRawBits() >> 4));// >> BIT_SHIFT; 
+ 	int mul = ((this->_fixedPointValue >> 4) * (rhs.getRawBits() >> 4));
     int resultIsFloat = rhs.isFloat() || this->isFloat();
 	return (_operationResult( resultIsFloat, mul));
 }
@@ -120,9 +119,20 @@ Fixed	Fixed::operator* ( Fixed const & rhs ) const{
 Fixed	Fixed::operator/ ( Fixed const & rhs ) const{
 
 	const int	BIT_SHIFT = 8;
- 	int div = ((this->_fixedPointValue) / (rhs.getRawBits())) << BIT_SHIFT;
-    int resultIsFloat = rhs.isFloat() || this->isFloat();
-	return (_operationResult( resultIsFloat, div));
+	int numerator = this->_fixedPointValue;
+	int denominator = rhs.getRawBits();
+	if (denominator != 0)
+	{
+		int div = ( (numerator << BIT_SHIFT) / denominator );
+    	int resultIsFloat = rhs.isFloat() || this->isFloat();
+		return (_operationResult( resultIsFloat, div));
+	}
+	else
+	{
+		std::cerr << std::endl;
+		std::cerr << ">> Error: Division by ";
+		return ( 0 );
+	}
 }
 
 bool Fixed::operator< (  Fixed const & rhs ) const{
@@ -184,6 +194,26 @@ Fixed	Fixed::operator--( int ) {
 
 	--(*this);
 	return temp;
+}
+
+Fixed &Fixed::min( Fixed &n1, Fixed &n2 ){
+
+	return ( n1 < n2 ? n1 : n2 );
+}
+
+const Fixed &Fixed::min( const Fixed &n1, const Fixed &n2 ){
+
+	return ( n1 < n2 ? n1 : n2 );
+}
+
+Fixed &Fixed::max( Fixed &n1, Fixed &n2 ){
+
+	return ( n1 > n2 ? n1 : n2 );
+}
+
+const Fixed &Fixed::max( const Fixed &n1, const Fixed &n2 ){
+
+	return ( n1 > n2 ? n1 : n2 );
 }
 
 std::ostream & operator<<( std::ostream & o, Fixed const & rhs){

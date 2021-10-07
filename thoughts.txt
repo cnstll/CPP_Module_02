@@ -99,8 +99,24 @@
 	> int sum = (f1 + f2)
 	> sum.isFloat() ? (float)(sum >> fractionalBits) : (int)(sum >> fractionalBits) 
 	
-	Check if float 
-	>   . 0 0 1 0 0 0 0 0 >> 6  -- 0 0 1
-	> & . 0 0 0 0 0 0 0 1
-	> & . 0 0 1 0 0 0 0 0
-	> 
+
+	Dividing Fixed point by Fixed point numbers (10.5/2 in W(6:2))
+
+		10.5 | 2
+		10	  ----
+		----  5.25
+		0.5
+		0.4
+		----
+		0.1
+		0.1
+		----
+		0
+	                  0 0 0 0 1 0 1
+					 ----------------
+	        1 0 0 0	| 1 0 1 0 1 0 
+			          1 0 0 0
+					  ---------
+					      1 0 1 0
+			              1 0 0 0
+						  1 0 1 . 0 1 000000
