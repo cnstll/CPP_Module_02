@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:42:23 by calle             #+#    #+#             */
-/*   Updated: 2021/10/07 17:58:29 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/08 10:40:03 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int main( void ) {
 	Fixed a;
-	Fixed const b( -2.75f );
-	Fixed const c( 10.5f );
+	Fixed const b( 2 );
+	Fixed const c( 21.625f );
 	Fixed const d( -2.625f );
 	Fixed const e( 10.5f );
 	Fixed f( -1.3125f );
@@ -61,7 +61,7 @@ int main( void ) {
 	std::cout << "c * d : " << c << " * " << d << " is " << (c * d) <<  std::endl;
 	std::cout << "a / b : " << a << " / " << b << " is " << (a / b) <<  std::endl;
 	std::cout << "c / d : " << c << " / " << d << " is " << (c / d) <<  std::endl;
-	std::cout << "b / f : " << b << " / " << f << " is " << (b / f) <<  std::endl;
+	std::cout << "f / d : " << b << " / " << f << " is " << (b / f) <<  std::endl;
 
 	std::cout << std::endl;	
 	std::cout << "------INCREMENT/DECREMENT------" << std::endl;	
@@ -83,6 +83,9 @@ int main( void ) {
 	std::cout << "postfix decrement yields: " << a-- << std::endl;
 	std::cout << "a is " << a << " after postfix decrement" << std::endl;
 	
+	std::cout << "prefix increment of a" << std::endl;
+	++a;
+
 	std::cout << std::endl;	
 	std::cout << "------MIN/MAX------" << std::endl;	
 	std::cout << std::endl;

@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:03:10 by calle             #+#    #+#             */
-/*   Updated: 2021/10/07 17:58:27 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/08 10:42:37 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,13 @@ Fixed	Fixed::operator/ ( Fixed const & rhs ) const{
 	int denominator = rhs.getRawBits();
 	if (denominator != 0)
 	{
-		int div = ( (numerator << BIT_SHIFT) / denominator );
+		int div = ( ((long)numerator << BIT_SHIFT) / (long)denominator );
     	int resultIsFloat = rhs.isFloat() || this->isFloat();
 		return (_operationResult( resultIsFloat, div));
 	}
 	else
 	{
-		std::cerr << std::endl;
-		std::cerr << ">> Error: Division by ";
+		std::cerr << "/n>> Error: Division by ";
 		return ( 0 );
 	}
 }
