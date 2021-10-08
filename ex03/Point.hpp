@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 12:36:47 by calle             #+#    #+#             */
-/*   Updated: 2021/10/08 12:55:28 by calle            ###   ########.fr       */
+/*   Updated: 2021/10/08 18:19:09 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,7 @@
 
 #include "Fixed.hpp"
 #include <iostream>
-//Private members:
-//◦ A Fixed const x
-//◦ A Fixed const y
-//◦ Anything else you judge useful.
-//• Public members:
-//◦ A default constructor that initializes x and y to 0.
-//◦ A destructor.
-//◦ A copy constructor.
-//◦ A constructor that takes two constant floating points as parameters and that
-//initializes x and y with those values.
-//◦ An assignation operator overload.
-//◦ Anything else you judge useful.
+
 class Point {
 	private:
 		Fixed const	x;
@@ -38,8 +27,11 @@ class Point {
 		Point( Fixed const a, Fixed const b );
 		~Point( void );
 
+		Fixed getPx( void ) const;	
+		Fixed getPy( void ) const;
+
 };
 
-std::ostream & operator<<( std::ostream & out, Fixed const & rhs );
+std::ostream & operator<<( std::ostream & out, Point const & rhs );
 
 #endif
