@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:03:10 by calle             #+#    #+#             */
-/*   Updated: 2021/10/08 16:31:06 by calle            ###   ########.fr       */
+/*   Updated: 2021/12/15 09:57:07 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ Fixed	Fixed::operator- ( Fixed const & rhs ) const{
 
 Fixed	Fixed::operator* ( Fixed const & rhs ) const{
 
- 	int mul = ((this->_fixedPointValue >> 4) * (rhs.getRawBits() >> 4));
+ 	long long int mul_lg = (this->_fixedPointValue * rhs.getRawBits()) >> _getFractionalBits();
+ 	int mul = (int)mul_lg;
     int resultIsFloat = rhs.isFloat() || this->isFloat();
 	return (_operationResult( resultIsFloat, mul));
 }
@@ -123,7 +124,7 @@ Fixed	Fixed::operator/ ( Fixed const & rhs ) const{
 	int denominator = rhs.getRawBits();
 	if (denominator != 0)
 	{
-		int div = ( ((long)numerator << BIT_SHIFT) / (long)denominator );
+		int div = (int)( ((long long )numerator << BIT_SHIFT) / denominator );
     	int resultIsFloat = rhs.isFloat() || this->isFloat();
 		return (_operationResult( resultIsFloat, div));
 	}

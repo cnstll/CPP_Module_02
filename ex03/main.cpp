@@ -6,7 +6,7 @@
 /*   By: calle <calle@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:42:23 by calle             #+#    #+#             */
-/*   Updated: 2021/10/08 18:22:08 by calle            ###   ########.fr       */
+/*   Updated: 2021/12/15 10:05:29 by calle            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main( void ) {
 		std::cout << "c: " << c << std::endl;
 		std::cout << ">> Is the following Point in triangle ? " << std::endl;
 		std::cout << "point: " << point << std::endl;
-		std::cout << ">> Answer: " << bsp(a, b ,c, point) << std::endl;
+		std::cout << ">> Answer: " << (bsp(a, b ,c, point) == 1 ? "True" : "False") << std::endl;
 	}
 	{
 		Point a;
@@ -46,7 +46,7 @@ int main( void ) {
 		std::cout << "c: " << c << std::endl;
 		std::cout << ">> Is the following Point in triangle ? " << std::endl;
 		std::cout << "point: " << point << std::endl;
-		std::cout << ">> Answer: " << bsp(a, b ,c, point) << std::endl;
+		std::cout << ">> Answer: " << (bsp(a, b ,c, point) == 1 ? "True" : "False") << std::endl;
 	}
 	{
 		Point a;
@@ -62,7 +62,7 @@ int main( void ) {
 		std::cout << "c: " << c << std::endl;
 		std::cout << ">> Is the following Point in triangle ? " << std::endl;
 		std::cout << "point: " << point << std::endl;
-		std::cout << ">> Answer: " << bsp(a, b ,c, point) << std::endl;
+		std::cout << ">> Answer: " << (bsp(a, b ,c, point) == 1 ? "True" : "False") << std::endl;
 	}
 	{
 		Point a;
@@ -78,7 +78,7 @@ int main( void ) {
 		std::cout << "c: " << c << std::endl;
 		std::cout << ">> Is the following Point in triangle ? " << std::endl;
 		std::cout << "point: " << point << std::endl;
-		std::cout << ">> Answer: " << bsp(a, b ,c, point) << std::endl;
+		std::cout << ">> Answer: " << (bsp(a, b ,c, point) == 1 ? "True" : "False") << std::endl;
 	}
 	return 0;
 }

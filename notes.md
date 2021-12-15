@@ -5,3 +5,4 @@
 * "Binary point" like in the decimal system, separates the integer part from the fractional part of the number.
 ## Sources:
 * https://www.cprogramming.com/tutorial/floating_point/understanding_floating_point.html
+* https://vha3.github.io/FixedPoint/FixedPoint.html
